@@ -71,11 +71,7 @@ public class Main {
 		}
 		
 		// 각 단지내 집의 수를 오름차순으로 정렬한다.
-		houses.sort(new Comparator<Integer>() {
-			public int compare(Integer o1, Integer o2) {
-				return o1 - o2;
-			}
-		});
+		houses.sort(null);
 	}
 	
 	// 한 단지를 이루는 집의 개수를 반환한다.

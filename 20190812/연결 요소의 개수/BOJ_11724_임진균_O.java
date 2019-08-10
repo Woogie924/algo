@@ -76,6 +76,7 @@ public class Main {
 		return count;
 	}
 	
+	// here 노드와 연결된 모든 노드를 방문한다.
 	public static void dfs(int here)
 	{
 		visited[here] = true;
@@ -90,6 +91,7 @@ public class Main {
 		}	
 	}
 	
+	// here 노드와 연결된 모든 노드를 방문한다.
 	public static void bfs(int start)
 	{
 		Queue<Integer> q = new LinkedList<Integer>();

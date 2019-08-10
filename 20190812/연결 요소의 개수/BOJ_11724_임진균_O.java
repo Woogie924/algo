@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -16,6 +18,7 @@ public class Main {
 	static ArrayList<ArrayList <Integer> > adjList; // 인접 리스트
 	
 	static boolean visited[];
+	static boolean discovered[];
 	
 	public static void main(String[] args) throws IOException {
 		reader = new BufferedReader(new InputStreamReader(System.in));
@@ -46,7 +49,7 @@ public class Main {
 		
 		// dfs를 위한 체크 배열 초기화
 		visited = new boolean[N + 1];
-		Arrays.fill(visited, false);
+		discovered = new boolean[N + 1];
 		
 		writer.write(solve() + "");
 		writer.flush();
@@ -57,17 +60,22 @@ public class Main {
 		int count = 0;
 		for(int start = 1 ; start <= N ; start++)
 		{
-			if(!visited[start])
+//			if(!visited[start])
+//			{
+//				count++;
+//				dfs(start);
+//			}
+			
+			if(!discovered[start])
 			{
 				count++;
-				dfs(start);
+				bfs(start);
 			}
 		}
 		
 		return count;
 	}
 	
-	// here 노드와 연결된 모든 노드를 방문한다.
 	public static void dfs(int here)
 	{
 		visited[here] = true;
@@ -80,5 +88,30 @@ public class Main {
 			if(!visited[there])
 				dfs(there);
 		}	
+	}
+	
+	public static void bfs(int start)
+	{
+		Queue<Integer> q = new LinkedList<Integer>();
+		
+		q.add(start);
+		discovered[start] = true;
+		
+		while(!q.isEmpty())
+		{
+			int here = q.poll();
+			
+			int size = adjList.get(here).size();
+			for(int i = 0 ; i < size ; i++)
+			{
+				int there = adjList.get(here).get(i);
+				
+				if(!discovered[there])
+				{
+					q.add(there);
+					discovered[there] = true;
+				}
+			}	
+		}
 	}
 }

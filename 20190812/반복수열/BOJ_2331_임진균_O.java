@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -15,7 +15,7 @@ public class Main {
 	static int A;
 	static int P;
 	
-	static int discovered[];
+	static int visited[];
 	
 	public static void main(String[] args) throws IOException {
 		reader = new BufferedReader(new InputStreamReader(System.in));
@@ -26,49 +26,48 @@ public class Main {
 		A = Integer.parseInt(st.nextToken());
 		P = Integer.parseInt(st.nextToken());
 		
-		// discovered 배열 생성 및 초기화
-		discovered = new int[300000];
-		Arrays.fill(discovered, -1);
+		// visited 배열 생성 및 초기화
+		visited = new int[236196 + 1]; // A = 9999, P = 5일 때 수열 D가 가질 수 있는 최대 값
+		Arrays.fill(visited, 2);
 		
 		writer.write(solve() + "\n");
 		writer.flush();
 	}
 	
-	// 특정 원소에 3번째 방문되는 순간 반복문을 탈출하여 discovered 배열에서 양수인 것의 개수를 헤아리면 된다.
 	public static int solve()
 	{
-		int ret = 0;
-		Queue<Integer> q = new LinkedList<Integer>();
+		HashSet<Integer> vertices = new HashSet<Integer>();
 		
-		// 초기 상태 삽입
-		q.add(A);
-		discovered[A] = 1;
-		
-		while(!q.isEmpty())
-		{
-			int D = q.poll();
-			
-			if(discovered[D] == -1)
-				break;
-			
-			int nextD = getNextD(D);
-			q.add(nextD);
-			
-			if(discovered[nextD] == -1)
-				discovered[nextD] = 1;
-			else
-				discovered[nextD]--;
-		}
-
-		int size = discovered.length;
-		for(int i = 0 ; i < size ; i++)
-			if(discovered[i] > 0)
-				ret++;
-		
-		return ret;
+		visited[A]--;
+		vertices.add(A);
+		return dfs(A, vertices);
 	}
 	
-	// D[n-1]이 value일 때, D[n]을 계산하여 반환한다.
+	public static int dfs(int here, HashSet<Integer> vertices)
+	{
+		int there = getNextD(here);
+		
+		// 기저 사례 : 한 노드에 3번 째 방문하려는 경우
+		if(visited[there] == 0)
+		{
+			int count = 0;
+			
+			Iterator<Integer> iter = vertices.iterator();
+			while(iter.hasNext())
+			{
+				// 수열에 남게 되는 수인 경우
+				if(visited[iter.next()] > 0)
+					count++;
+			}
+			
+			return count;
+		}
+		
+		visited[there]--;
+		vertices.add(there);
+		return dfs(there, vertices);
+	}
+	
 	public static int getNextD(int value)
 	{
 		int ret = 0;
@@ -81,4 +80,4 @@ public class Main {
 		return ret;
 	}
 
-} 
+}

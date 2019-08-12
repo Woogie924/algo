@@ -16,7 +16,7 @@ public class Main {
 		 */
 		String [] input;
 		
-//		while(true) {
+		while(true) {
 
 			input = br.readLine().split(" ");
 			if(input[0].equals("0") && input[1].equals("0")) {
@@ -38,13 +38,14 @@ public class Main {
 			for(int i=0; i<h; i++) {
 				for(int j=0; j<w;j++) {
 					if(MAP[i][j] == 1 && visited[i][j] == false) {
-						bfs(i,j, ++cnt);
+						bfs(i,j, cnt);
+						cnt++;
 					}
 				}
 			}
 			System.out.println(cnt);
 			cnt=0;
-//		}
+		}
 	}
 
 	static int cnt=0;
@@ -56,20 +57,20 @@ public class Main {
 		Queue<Integer> qx = new LinkedList<Integer>();
 		Queue<Integer> qy = new LinkedList<Integer>();
 		visited[x][y] = true;
-
-		if( MAP[x][y] ==1) {
-			cnt++;
-		}
+		qx.offer(x);
+		qy.offer(y);
+//		if( MAP[x][y] ==1) {
+//			cnt++;
+//		}
 
 		while(!qx.isEmpty() && !qy.isEmpty()) {
 			x = qx.poll();
 			y = qy.poll();
-			System.out.println(x+","+y);
 			for(int k=0; k<8 ; k++) {
 
 				int tx = x + dx[k];
 				int ty = y + dy[k];
-				if(0>tx || 0>ty || tx >= w || tx >=h) { //외곽일때
+				if(0>tx || 0>ty || tx >= h || ty >=w) { //외곽일때
 					continue;
 				}
 				if(MAP[tx][ty] == 1 && visited[tx][ty] == false) {

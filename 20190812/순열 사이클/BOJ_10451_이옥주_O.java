@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class bj10451 {
+public class BOJ_10451_¿Ãø¡¡÷_O {
 	static boolean[] visited;
 	static int[] arr;
 	static int check;

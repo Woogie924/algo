@@ -39,18 +39,20 @@ public class Main {
 		
 		MAP = new int [N][M];
 		String [] inputMap;
-		int startRow =0;
-		int startColumn =0;
+//		int startRow =0;
+//		int startColumn =0;
 		
 		//맵 초기화,, 시작 좌표 설정
 		for(int i=0; i<N; i++) {
 			inputMap =br.readLine().split(" ");
 			for(int j=0; j<M;j++) {
 				MAP[i][j] = Integer.parseInt(inputMap[j]);
-				if(MAP[i][j]==0) {
-					startRow = i;
-					startColumn = j;
-				}
+				
+				
+//				if(MAP[i][j]==0) {
+//					startRow = i;
+//					startColumn = j;
+//				}
 			}
 		}
 		String [] inputCommand = br.readLine().split(" ");
@@ -60,8 +62,8 @@ public class Main {
 			Command[i] = Integer.parseInt(inputCommand[i]);
 		}
 		
-		int tRow = startRow;
-		int tColumn = startColumn;
+		int tRow = x;
+		int tColumn = y;
 		//명령 반복
 		for(int i=0; i<Command.length; i++) {
 			

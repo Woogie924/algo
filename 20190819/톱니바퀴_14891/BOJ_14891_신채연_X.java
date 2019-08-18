@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class BOJ_14891_신채연_X {
+public class BOJ_14891_신채연_X2 {
 	static BufferedReader reader;
 	static StringTokenizer st;
 	static ArrayList<Integer> t1;
@@ -43,9 +43,10 @@ public class BOJ_14891_신채연_X {
 			int t = Integer.parseInt(st.nextToken());
 			int dir = Integer.parseInt(st.nextToken());	//1:시계, -1:반시계
 			
+			//** same12_4는 4번째 톱니에서 1번톱니와 2번톱니가 맞닿은 부분이 같은지여부!!
 			switch(t) {
 			case 1:
-				if(t1.get(2)==t2.get(6)) break;
+				//if(t1.get(2)==t2.get(6)) break;
 
 				//다르면 회전시작
 				///2,3과 3,4의 접하는 곳이 같은지 확인 -> false면 다 돌려야 함
@@ -56,6 +57,7 @@ public class BOJ_14891_신채연_X {
 				
 				if(dir==1) {//시계방향
 					cw(t1);
+					if(t1.get(2)==t2.get(6)) break;
 					ccw(t2);
 					if(same23_1==false) cw(t3);
 					else break;
@@ -65,6 +67,7 @@ public class BOJ_14891_신채연_X {
 				
 				if(dir==-1) {//반시계방향
 					ccw(t1);
+					if(t1.get(2)==t2.get(6)) break;
 					cw(t2);
 					if(same23_1==false) ccw(t3);
 					else break;
@@ -81,8 +84,8 @@ public class BOJ_14891_신채연_X {
 				if(t3.get(2)==t4.get(6)) same34_2=true;
 				
 				if(dir==1) {//시계방향
-					if(same12_2==false) ccw(t1);
 					cw(t2);
+					if(same12_2==false) ccw(t1);
 					if(same23_2==false) ccw(t3);
 					else break;
 					if(same34_2==false) cw(t4);
@@ -90,8 +93,8 @@ public class BOJ_14891_신채연_X {
 				}
 				
 				if(dir==-1) {//반시계방향
+					ccw(t2);
   					if(same12_2==false) cw(t1);
- 					ccw(t2);
 					if(same23_2==false) cw(t3);
 					else break;
 					if(same34_2==false) ccw(t4);
@@ -107,8 +110,8 @@ public class BOJ_14891_신채연_X {
 				if(t3.get(2)==t4.get(6)) same34_3=true;
 				
 				if(dir==1) {//시계방향
-					if(same34_3==false) ccw(t4);
 					cw(t3);
+					if(same34_3==false) ccw(t4);
 					if(same23_3==false) ccw(t2);
 					else break;
 					if(same12_3==false) cw(t1);
@@ -116,8 +119,8 @@ public class BOJ_14891_신채연_X {
 				}
 				
 				if(dir==-1) {//반계방향
-					if(same34_3==false) cw(t4);
 					ccw(t3);
+					if(same34_3==false) cw(t4);
 					if(same23_3==false) cw(t2);
 					else break;
 					if(same12_3==false) ccw(t1);
@@ -125,7 +128,7 @@ public class BOJ_14891_신채연_X {
 				}
 				break;
 			case 4:
-				if(t3.get(2)==t4.get(6)) break;
+				//if(t3.get(2)==t4.get(6)) break;
 				
 				boolean same12_4=false;
 				if(t1.get(2)==t2.get(6)) same12_4=true;
@@ -134,6 +137,7 @@ public class BOJ_14891_신채연_X {
 				
 				if(dir==1) {//시계방향
 					cw(t4);
+					if(t3.get(2)==t4.get(6)) break;
 					ccw(t3);
 					if(same23_4==false) cw(t2);
 					else break;
@@ -143,6 +147,7 @@ public class BOJ_14891_신채연_X {
 				
 				if(dir==-1) {//반시계방향
 					ccw(t4);
+					if(t3.get(2)==t4.get(6)) break;
 					cw(t3);
 					if(same23_4==false) ccw(t2);
 					else break;
@@ -151,17 +156,6 @@ public class BOJ_14891_신채연_X {
 				}
 				break;
 			}//end of switch
-			
-			
-			
-			//test
-			System.out.println(t1.toString());
-			System.out.println(t2.toString());
-			System.out.println(t3.toString());
-			System.out.println(t4.toString());
-
-			System.out.println();
-			
 		}//end of for (한 회전)
 		
 		int score=0;

@@ -192,6 +192,7 @@ public class Main {
 		}		
 	}
 	
+	// (startX, startY) 지점의 미네랄을 포함하는 클러스터를 찾아서 반환한다.
 	static ArrayList<Pos> findCluster(int startX, int startY, boolean discovered[][])
 	{
 		ArrayList<Pos> cluster = new ArrayList<Pos>();

@@ -110,6 +110,7 @@ public class Main {
 			
 			visit++;
 			
+			// 이미 바이러스가 존재했던 칸이므로 확산 시간에 포함시키면 안된다.
 			if(map[x][y] != 2)
 				time = Math.max(time, t);
 			

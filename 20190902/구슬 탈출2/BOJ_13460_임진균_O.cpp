@@ -23,7 +23,7 @@ const int dx[4] = { -1, 0, 1, 0 };
 const int dy[4] = { 0, 1, 0, -1 };
 
 int solve(int moved);
-void leanBorad(int dir);
+void leanBoard(int dir);
 
 int main(void)
 {
@@ -77,7 +77,7 @@ int solve(int moved)
 		Pos prevBlue = blue;
 
 		// 보드를 기울인다.
-		leanBorad(dir);
+		leanBoard(dir);
 
 		// 구슬의 위치에 변화가 없다면 이번 시도는 무시하고 다른 방향으로 시도한다.
 		if (prevRed.x == red.x && prevRed.y == red.y &&
@@ -95,7 +95,7 @@ int solve(int moved)
 }
 
 // 보드를 dir방향으로 기울인다.
-void leanBorad(int dir)
+void leanBoard(int dir)
 {
 	// 어느 구슬을 먼저 움직여야 하는지 선정한다.
 	// bid1, bid2 순서로 구슬을 움직인다. 
@@ -103,28 +103,28 @@ void leanBorad(int dir)
 	switch (dir)
 	{
 		// 북
-		case 0:
-			bid1 = (red.x < blue.x ? &red : &blue);
-			bid2 = (red.x < blue.x ? &blue : &red);
-			break;
+	case 0:
+		bid1 = (red.x < blue.x ? &red : &blue);
+		bid2 = (red.x < blue.x ? &blue : &red);
+		break;
 
 		// 동 
-		case 1:
-			bid1 = (red.y > blue.y ? &red : &blue);
-			bid2 = (red.y > blue.y ? &blue : &red);
-			break;
+	case 1:
+		bid1 = (red.y > blue.y ? &red : &blue);
+		bid2 = (red.y > blue.y ? &blue : &red);
+		break;
 
 		// 남
-		case 2:
-			bid1 = (red.x > blue.x ? &red : &blue);
-			bid2 = (red.x > blue.x ? &blue : &red);
-			break;
+	case 2:
+		bid1 = (red.x > blue.x ? &red : &blue);
+		bid2 = (red.x > blue.x ? &blue : &red);
+		break;
 
 		// 서
-		case 3:
-			bid1 = (red.y < blue.y ? &red : &blue);
-			bid2 = (red.y < blue.y ? &blue : &red);
-			break;
+	case 3:
+		bid1 = (red.y < blue.y ? &red : &blue);
+		bid2 = (red.y < blue.y ? &blue : &red);
+		break;
 	}
 
 	// bid1 구슬을 움직인다.

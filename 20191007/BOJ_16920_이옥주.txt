@@ -1,0 +1,136 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Main {
+	static Queue<position> q = new LinkedList<>();
+	static boolean[][] visited;
+	static int turn = 1;
+	static int count=0;
+	static int row, col, person;
+	static char[][] arr;
+	static int[] check;
+	static int[] num;
+	static ArrayList<position> list = new ArrayList<>();
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String[] str = br.readLine().split(" ");
+		row = Integer.parseInt(str[0]);
+		col = Integer.parseInt(str[1]);
+		person = Integer.parseInt(str[2]);
+		arr = new char[row][col];
+		str = br.readLine().split(" ");
+		num = new int[person+1];
+		check = new int[person+1];
+		int[] result = new int[person+1];
+		visited = new boolean[row][col];
+		
+		for(int i=0; i<person; i++) {
+			num[i+1] = Integer.parseInt(str[i]);
+		}  //사람마다 움직일 수 있는 수 받기
+		
+		for(int i=0; i<row; i++) {
+			arr[i] = br.readLine().toCharArray();
+			
+			for(int j=0; j<col; j++) {
+				if(arr[i][j] == '.') {
+					count++;
+				}
+			}
+		}  //격자판 받기
+		
+		while(true) {
+			list.clear();
+			
+			if(turn > person) {
+				if(isDone()) break;
+				turn = 1;
+				check = new int[person+1];
+			}
+			
+			if(count==0) {
+				break;
+			}
+			
+			for(int i=0; i<row; i++) {
+				for(int j=0; j<col; j++) {
+					if(arr[i][j]-'0' == turn) {
+						list.add(new position(i,j));
+					}	
+				}
+			}
+			
+			for(int i=0; i<list.size(); i++) {
+				visited = new boolean[row][col];
+				q.offer(new position(list.get(i).x, list.get(i).y));
+				visited[list.get(i).x][list.get(i).y] = true;
+				bfs(i);
+			}
+			
+			turn++;
+		}
+		
+		for(int i=0; i<row; i++) {
+			for(int j=0; j<col; j++) {
+				if(arr[i][j] != '.' && arr[i][j] != '#') {
+					result[arr[i][j] - '0']++;
+				}
+			}
+		}
+		
+		for(int i=1; i<=person; i++) {
+			System.out.printf("%d ",result[i]);
+		}	
+	}
+	
+	private static boolean isDone() {
+		for(int k=1; k<=person; k++) {
+			if(check[k] != 0) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	static int[] x = {0,0,-1,1};
+	static int[] y = {-1,1,0,0};
+	static int tempX, tempY;
+	static position po = new position(0, 0);
+	
+	private static void bfs(int i) {
+		while(!q.isEmpty()) {
+			po = q.poll();
+			
+			for(int j=0; j<4; j++) {
+				tempX = po.x + x[j];
+				tempY = po.y + y[j];
+				
+				if(tempX<0 || tempX>=row || tempY<0 || tempY>=col) continue;
+				if(Math.abs(list.get(i).x - tempX) + Math.abs(list.get(i).y - tempY) > num[turn]) continue;
+				if(arr[tempX][tempY]!='.') continue;
+				if(visited[tempX][tempY]) continue;
+				q.offer(new position(tempX,tempY));
+				arr[tempX][tempY] = (char)(turn+'0');
+				visited[tempX][tempY] = true;
+				count--;
+				check[turn]++;
+			}
+		}
+	}
+
+	static class position{
+		int x;
+		int y;
+		
+		public position(int x, int y) {
+			super();
+			this.x = x;
+			this.y = y;
+		}
+	}
+}

@@ -1,0 +1,68 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Main {
+	static Queue<position> q = new LinkedList<>();
+	static boolean[][] visited;
+	static int size;
+	static int endX, endY;
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		size = Integer.parseInt(br.readLine());
+		String[] str = br.readLine().split(" ");
+		int startX = Integer.parseInt(str[0]);
+		int startY = Integer.parseInt(str[1]);
+		endX = Integer.parseInt(str[2]);
+		endY = Integer.parseInt(str[3]);
+		visited = new boolean[size][size];
+		
+		q.offer(new position(startX, startY,0));
+		visited[startX][startY] = true;
+		int result = bfs();
+		
+		System.out.println(result);
+		
+	}
+	static int tempX, tempY;
+	static position po = new position(0,0,0);
+	static int[] x = {-2,-2,0,0,2,2};
+	static int[] y = {-1,1,-2,2,-1,1};
+	
+	private static int bfs() {
+		while(!q.isEmpty()) {
+			po = q.poll();
+			
+			for(int i=0; i<6; i++) {
+				tempX = po.x + x[i];
+				tempY = po.y + y[i];
+				
+				if(tempX==endX && tempY==endY) {
+					return po.count+1;
+				}
+				if(tempX<0 || tempX>=size || tempY<0 || tempY>=size) continue;
+				if(visited[tempX][tempY]) continue;
+				q.offer(new position(tempX,tempY,po.count+1));
+				visited[tempX][tempY] = true;
+			}
+		}
+		
+		return -1;
+	}
+
+	static class position{
+		int x;
+		int y;
+		int count;
+		
+		public position(int x, int y, int count) {
+			super();
+			this.x = x;
+			this.y = y;
+			this.count = count;
+		}
+	}
+}

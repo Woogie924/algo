@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BOJ_16920_ÀÌ¿ÁÁÖ_O {
+public class BOJ_16920_ï¿½Ì¿ï¿½ï¿½ï¿½_O {
 	static Queue<position> q = new LinkedList<>();
 	static boolean[][] visited;
 	static int turn = 1;
@@ -31,7 +31,7 @@ public class BOJ_16920_ÀÌ¿ÁÁÖ_O {
 		
 		for(int i=0; i<person; i++) {
 			num[i+1] = Integer.parseInt(str[i]);
-		}  //»ç¶÷¸¶´Ù ¿òÁ÷ÀÏ ¼ö ÀÖ´Â ¼ö ¹Ş±â
+		}  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½Ş±ï¿½
 		
 		for(int i=0; i<row; i++) {
 			arr[i] = br.readLine().toCharArray();
@@ -41,7 +41,7 @@ public class BOJ_16920_ÀÌ¿ÁÁÖ_O {
 					count++;
 				}
 			}
-		}  //°İÀÚÆÇ ¹Ş±â
+		}  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş±ï¿½
 		
 		while(true) {
 			list.clear();

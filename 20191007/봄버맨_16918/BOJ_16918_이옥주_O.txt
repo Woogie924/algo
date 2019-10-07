@@ -1,0 +1,105 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String[] str = br.readLine().split(" ");
+		int row = Integer.parseInt(str[0]);
+		int col = Integer.parseInt(str[1]);
+		int time = Integer.parseInt(str[2]);
+		info[][] arr = new info[row][col];
+		ArrayList<position> list = new ArrayList<>();
+		
+		int count = 1;
+		int[] x = {0,0,-1,1};
+		int[] y = {-1,1,0,0};
+		
+		for(int i=0; i<row; i++) {
+			str = br.readLine().split("");
+			
+			for(int j=0; j<col; j++) {
+				arr[i][j] = new info(str[j],0);
+			}
+		}  //입력 받기
+		
+		for(int i=0; i<time; i++) {
+			if(count==4) {
+				count = 2;
+			}
+			
+			for(int j=0; j<row; j++) {
+				for(int k=0; k<col; k++) {
+					arr[j][k].count++;
+				}
+			}
+			
+			if(count == 2) {   //빈자리에 폭탄 놓기
+				for(int j=0; j<row; j++) {
+					for(int k=0; k<col; k++) {
+						if(arr[j][k].ch.equals(".")) {
+							arr[j][k].ch = "O";
+							arr[j][k].count = 0;
+						}
+					}
+				}
+			}
+			
+			else if(count == 3) {  //count가 3인 자리를 찾아서 상하좌우 터트리기
+				for(int j=0; j<row; j++) {
+					for(int k=0; k<col; k++) {
+						if((arr[j][k].ch.equals("O")) && (arr[j][k].count==3)) {
+							list.add(new position(j,k));
+						}
+					}
+				}
+				
+				for(int j=0; j<list.size(); j++) {
+					for(int w=0; w<4; w++) {
+						if(list.get(j).x + x[w]<0 || list.get(j).x + x[w]>=row || list.get(j).y+y[w]<0 || list.get(j).y+y[w]>=col) continue;
+						arr[list.get(j).x + x[w]][list.get(j).y+y[w]].ch = ".";
+						arr[list.get(j).x + x[w]][list.get(j).y+y[w]].count = 0;
+					}
+					arr[list.get(j).x][list.get(j).y].ch = ".";
+					arr[list.get(j).x][list.get(j).y].count = 0;
+				}
+				
+				list.clear();
+			}
+			
+			count++;	
+		}
+		
+		for(int i=0; i<row; i++) {
+			for(int j=0; j<col; j++) {
+				System.out.printf(arr[i][j].ch);
+			}
+			System.out.println();
+		}
+	}
+	
+	static class info{
+		String ch;
+		int count;
+		
+		public info(String ch, int count) {
+			super();
+			this.ch = ch;
+			this.count = count;
+		}
+	}
+	
+	static class position{
+		int x;
+		int y;
+		
+		public position(int x, int y) {
+			super();
+			this.x = x;
+			this.y = y;
+		}
+	}
+}

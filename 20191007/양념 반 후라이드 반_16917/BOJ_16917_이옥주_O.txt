@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String[] str = br.readLine().split(" ");	
+		int ch1 = Integer.parseInt(str[0]);
+		int ch2 = Integer.parseInt(str[1]);
+		int ch3 = Integer.parseInt(str[2]);
+		int num1 = Integer.parseInt(str[3]);
+		int num2 = Integer.parseInt(str[4]);
+		int sum = 0;
+		
+		if(ch1+ch2 > ch3*2) {
+			int minNum = Math.min(num1, num2);
+			sum += minNum * 2 *ch3;
+			num1-= minNum;
+			num2-= minNum;   //반반치킨으로 앙념치킨, 후라이드치킨 구하기
+		}
+		
+		if(ch3*2 < ch1) {  //반반치킨으로 한마리 만드는게 더 저렴할 떄 - 양념
+			sum+= num1 * 2 * ch3;
+		}
+		
+		else {
+			sum+= num1 * ch1; 
+		}
+		
+		if(ch3*2 < ch2) {  //반반치킨으로 한마리 만드는게 더 저렴할 떄 - 후라이드
+			sum+= num2 * 2 * ch3;
+		}
+		
+		else {
+			sum+= num2 * ch2; 
+		}
+		System.out.println(sum);
+	}
+}

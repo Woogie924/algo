@@ -1,0 +1,67 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
+
+public class Main {
+	static class Node implements Comparable<Node>{
+		int dest, val;
+
+		public Node(int dest, int val) {
+			super();
+			this.dest = dest;
+			this.val = val;
+		}
+
+		@Override
+		public int compareTo(Node o) {
+			return this.val-o.val;
+		}
+		
+	}
+	static int size, cycle, d[], start, end, sum;
+	static ArrayList<Node> list[];
+	static boolean[] visited;
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		size = Integer.parseInt(br.readLine());
+		list = new ArrayList[size+1];
+		visited = new boolean[size+1];
+		for(int i=0; i<list.length; i++) list[i] = new ArrayList<>();
+		
+		cycle = Integer.parseInt(br.readLine());
+		StringTokenizer st;
+		int s, e, v;
+		for(int i=0; i<cycle; i++) {
+			st = new StringTokenizer(br.readLine());
+			s = Integer.parseInt(st.nextToken());
+			e = Integer.parseInt(st.nextToken());
+			v = Integer.parseInt(st.nextToken());
+			list[s].add(new Node(e, v));
+		}
+		d = new int[size+1];
+		Arrays.fill(d, Integer.MAX_VALUE-100001);
+		st = new StringTokenizer(br.readLine());
+		start = Integer.parseInt(st.nextToken());
+		end = Integer.parseInt(st.nextToken());
+		
+		PriorityQueue<Node> pq = new PriorityQueue<>();
+		pq.offer(new Node(start, 0));
+		d[start] = 0;
+		Node temp;
+		while(!pq.isEmpty()) {
+			temp = pq.poll();
+			for(Node n : list[temp.dest]) {
+				if(d[n.dest] > n.val + temp.val) {
+					d[n.dest] = n.val + temp.val;
+					pq.offer(new Node(n.dest, temp.val + n.val));
+				}
+				
+			}
+		}
+		System.out.println(d[end]);
+	}
+}

@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class SWEA_1952_ÀÌ¿ÁÁÖ_¼ö¿µÀå {
+public class SWEA_1952_ï¿½Ì¿ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -15,16 +15,16 @@ public class SWEA_1952_ÀÌ¿ÁÁÖ_¼ö¿µÀå {
 		for(int i=0; i<caseNum; i++) {
 			int[][] result = new int[2][13];
 			str = br.readLine().split(" ");
-			for(int j=0; j<4; j++) {  //ÀÌ¿ë °¡°İ ÀÔ·Â ¹Ş±â(1ÀÏ, 1´Ş, 3´Ş, 1³â)
+			for(int j=0; j<4; j++) {  //ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½Ş±ï¿½(1ï¿½ï¿½, 1ï¿½ï¿½, 3ï¿½ï¿½, 1ï¿½ï¿½)
 				price[j] = Integer.parseInt(str[j]);
 			}
 			
 			str = br.readLine().split(" ");
-			for(int j=1; j<=12; j++) {   //ÇÑ´Ş ÀÌ¿ë È½¼ö ¹Ş±â
+			for(int j=1; j<=12; j++) {   //ï¿½Ñ´ï¿½ ï¿½Ì¿ï¿½ È½ï¿½ï¿½ ï¿½Ş±ï¿½
 				month[j] = Integer.parseInt(str[j-1]);
 			}
 			
-			for(int j=1; j<=12; j++) {  //1ÀÏ°ú 1´Ş ºñ¿ë ºñ±³ÇÏ±â , 3´Ş ºñ¿ë ºñ±³ÇÏ±â
+			for(int j=1; j<=12; j++) {  //1ï¿½Ï°ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ , 3ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 				result[0][j] = Math.min(month[j] * price[0], price[1]);
 				result[1][j] = result[1][j-1] + result[0][j];
 			}
@@ -38,7 +38,7 @@ public class SWEA_1952_ÀÌ¿ÁÁÖ_¼ö¿µÀå {
 				}
 			}
 			
-			//1³â ºñ¿ë°ú ºñ±³ÇÏ±â
+			//1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 			result[1][12] = Math.min(result[1][12], price[3]);
 			System.out.printf("#%d %d\n",i+1,result[1][12]);	
 		}

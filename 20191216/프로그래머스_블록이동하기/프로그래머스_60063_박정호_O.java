@@ -58,7 +58,6 @@ public class Programmers_블록이동하기_60063_박정호_O {
       int level = 1;
       here:while (!q.isEmpty()) {
          int qSize = q.size();
-//         System.out.println("level : "+level+" qSize : "+qSize);
          for (int i = 0; i < qSize; ++i) {
             dron = q.poll();
             check(level, dron, board);
@@ -67,8 +66,6 @@ public class Programmers_블록이동하기_60063_박정호_O {
          }
          level++;
       }
-//      for(Check c : list)
-//         System.out.println(c);
       System.out.println(answer);
    }
 

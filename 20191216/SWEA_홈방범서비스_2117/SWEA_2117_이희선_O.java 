@@ -1,14 +1,19 @@
+ /*
+  * ë©”ëª¨ë¦¬ 	37,232kb
+  * ì‹¤í–‰ì‹œê°„ 	359ms
+  */
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
  /*
-  * ¸Ş¸ğ¸® 	37,232kb
-  * ½ÇÇà½Ã°£ 	359ms
+  * ë©”ëª¨ë¦¬ 	37,232kb
+  * ì‹¤í–‰ì‹œê°„ 	359ms
   */
-public class Se2117_È¨¹æ¹ü¼­ºñ½º {
-    static int N, M, cost;              //N:µµ½ÃÅ©±â M:ÁöºÒºñ¿ë cost:¿î¿µºñ¿ë
-    static int result;                  //ÃÖÁ¾ ÁıµéÀÇ ¼ö
-    static int[][] city;                //µµ½ÃÁ¤º¸
+public class Se2117_í™ˆë°©ë²”ì„œë¹„ìŠ¤ {
+    static int N, M, cost;              //N:ë„ì‹œí¬ê¸° M:ì§€ë¶ˆë¹„ìš© cost:ìš´ì˜ë¹„ìš©
+    static int result;                  //ìµœì¢… ì§‘ë“¤ì˜ ìˆ˜
+    static int[][] city;                //ë„ì‹œì •ë³´
     static void solve(int k, int i, int j) {
         int top = i-k+1;
         int left = j-k+1;

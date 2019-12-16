@@ -32,9 +32,6 @@ public class P_60063_블록이동하기 {
 
 		public int solution(int[][] board) {
 			int answer = 0;
-//         for (int i = 0; i < board.length; i++) {
-//            System.out.println(Arrays.toString(board[i]));
-//         }
 
 			int N = board.length;
 			Queue<Point> q = new LinkedList<>();
@@ -44,7 +41,6 @@ public class P_60063_블록이동하기 {
 			exit : while (!q.isEmpty()) {
 				Point temp = q.poll();
 				
-//				System.out.println("(" + temp.x1 + ", "  + temp.y1 + ") (" + temp.x2 + ", " + temp.y2 + ")");
 				for (int i = 0; i < 4; i++) {
 					int dx1 = temp.x1 + dir[i][0];
 					int dy1 = temp.y1 + dir[i][1];
@@ -67,21 +63,15 @@ public class P_60063_블록이동하기 {
 					if (dx1 >= N || dy1 >= N || dx2 >= N || dy2 >= N || dx2 >= N || dy2 >= N) continue;
 					if (board[dx1][dy1] == 1 || board[dx2][dy2] == 1) continue;
 					
-//					System.out.print(visited[dx1][dy1][d] + " , " + (temp.cnt + 1) + " || ");
-//					System.out.print("1 : " + visited[dx1][dy1][d] + "  || ");
 					Point p = new Point(dx1, dy1, dx2, dy2, temp.cnt + 1);
-//					System.out.print(p + " | " + (d == 0 ? "가로" : "세로"));
 					
 					if (visited[dx1][dy1][d] == -1 || (visited[dx1][dy1][d] != 0 && visited[dx1][dy1][d] <= temp.cnt + 1)) {
-//						System.out.println(" -> X");
 						continue;
 					}
 					if ((dx1 == N - 1 && dy1 == N - 1) || (dx2 == N - 1 && dy2 == N - 1)) {
 						answer = temp.cnt + 1;
 						break exit;
 					}
-					
-//					System.out.println(" -> O");
 					
 					visited[dx1][dy1][d] = temp.cnt + 1;
 					
@@ -137,18 +127,13 @@ public class P_60063_블록이동하기 {
 						dy1 = dy2;
 						dy2 = t;
 					}
-//					System.out.printf("%d, %d, %d, %d\n", dx1, dy1, dx2, dy2);
 					if (dx1 < 0 || dy1 < 0 || dx2 < 0 || dy2 < 0 || dx2 < 0 || dy2 < 0) continue;
 					if (dx1 >= N || dy1 >= N || dx2 >= N || dy2 >= N || dx2 >= N || dy2 >= N) continue;
 					if (board[dx1][dy1] == 1 || board[dx2][dy2] == 1 || board[cx][cy] == 1) continue;
 					
-//					System.out.print(visited[dx1][dy1][d] + " , " + (temp.cnt + 1) + " || ");
-//					System.out.print("2 : " + visited[dx1][dy1][d] + "  || ");
 					Point p = new Point(dx1, dy1, dx2, dy2, temp.cnt + 1);
-//					System.out.print(p + " | " + (d == 0 ? "가로" : "세로"));
 					
 					if (visited[dx1][dy1][d] == -1 || (visited[dx1][dy1][d] != 0 && visited[dx1][dy1][d] <= temp.cnt + 1)) {
-//						System.out.println(" -> X");
 						continue;
 					}
 					if ((dx1 == N - 1 && dy1 == N - 1) || (dx2 == N - 1 && dy2 == N - 1)) {
@@ -156,12 +141,10 @@ public class P_60063_블록이동하기 {
 						break exit;
 					}
 					
-//					System.out.println(" -> O");
 					visited[dx1][dy1][d] = temp.cnt + 1;
 					q.add(p);
 
 				}
-//				System.out.println();
 			}
 			return answer;
 		}

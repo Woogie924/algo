@@ -24,7 +24,7 @@ public class KAKAO2020_7 {
       N = board.length;
       System.out.println(N);
       Drone d = new Drone(new Pos(0,0), new Pos(0,1), 0);
-      visited = new boolean[board.length][board.length][2]; //0 °¡·Î»óÅÂ 1 ¼¼·Î»óÅÂ
+      visited = new boolean[board.length][board.length][2]; //0 ê°€ë¡œìƒíƒœ 1 ì„¸ë¡œìƒíƒœ
       Queue<Drone> q = new LinkedList<>();
       int answer = 0;
       
@@ -40,13 +40,13 @@ public class KAKAO2020_7 {
          for(int i=0; i<qs; ++i) {
             Drone curr = q.poll();
            
-            //Á¾·áÁ¶°Ç
+            //ì¢…ë£Œì¡°ê±´
             if((curr.main.y==N-1 && curr.main.x==N-1) || (curr.sub.y==N-1 && curr.sub.x==N-1)) {
                return answer;
             }
             
             
-            //4¹æÇâ¿¡´ëÇÑ Å½»ö
+            //4ë°©í–¥ì—ëŒ€í•œ íƒìƒ‰
             for(int dir = 0; dir < 4; ++dir) {
                
                int my = curr.main.y + dy[dir];
@@ -63,56 +63,56 @@ public class KAKAO2020_7 {
                q.offer(new Drone(new Pos(my, mx), new Pos(sy, sx), curr.state));
             }
             
-            if(curr.state==0) { //°¡·Î »óÅÂ
+            if(curr.state==0) { //ê°€ë¡œ ìƒíƒœ
                
-               //main Ãà ±âÁØ ¹İ½Ã°è
+               //main ì¶• ê¸°ì¤€ ë°˜ì‹œê³„
                if(check(curr.main.y-1, curr.main.x, curr.main.y, curr.main.x, 1, board) && rtcheck(curr.main.y, curr.main.x, board, 0)) {
                   visited[curr.main.y-1][curr.main.x][1]=true;
                   visited[curr.main.y][curr.main.x][1]=true;
                   q.offer(new Drone(new Pos(curr.main.y-1, curr.main.x), new Pos(curr.main.y, curr.main.x), 1));
                }
-               //main Ãà ±âÁØ ½Ã°è¹æÇâ
+               //main ì¶• ê¸°ì¤€ ì‹œê³„ë°©í–¥
                if(check(curr.main.y+1, curr.main.x, curr.main.y, curr.main.x, 1, board) && rtcheck(curr.main.y, curr.main.x, board,3)) {
                   visited[curr.main.y+1][curr.main.x][1] = true;
                   visited[curr.main.y][curr.main.x][1] = true;
                   q.offer(new Drone(new Pos(curr.main.y, curr.main.x), new Pos(curr.main.y+1, curr.main.x), 1));
                }
-               //sub Ãà ±âÁØ  ½Ã°è
+               //sub ì¶• ê¸°ì¤€  ì‹œê³„
                if(check(curr.sub.y-1, curr.sub.x, curr.sub.y, curr.sub.x, 1, board) && rtcheck(curr.sub.y, curr.sub.x, board, 1)) {
                   visited[curr.sub.y-1][curr.sub.x][1] = true;
                   visited[curr.sub.y][curr.sub.x][1] = true;
                   q.offer(new Drone(new Pos(curr.sub.y-1, curr.sub.x), new Pos(curr.sub.y, curr.sub.x),1));
                }
-               //sub Ãà ±âÁØ ¹İ½Ã°è
+               //sub ì¶• ê¸°ì¤€ ë°˜ì‹œê³„
                if(check(curr.sub.y+1, curr.sub.x, curr.sub.y, curr.sub.x, 1, board) && rtcheck(curr.sub.y, curr.sub.x, board, 2)) {
                   visited[curr.sub.y+1][curr.sub.x][1] = true;
                   visited[curr.sub.y][curr.sub.x][1] = true;
                   q.offer(new Drone(new Pos(curr.sub.y, curr.sub.x), new Pos(curr.sub.y+1, curr.sub.x),1));
                }
             }
-            else if(curr.state==1) {//¼¼·Î
-               //main Ãà ±âÁØ ½Ã°è
+            else if(curr.state==1) {//ì„¸ë¡œ
+               //main ì¶• ê¸°ì¤€ ì‹œê³„
                if(check(curr.main.y, curr.main.x-1, curr.main.y, curr.main.x, 0, board) && rtcheck(curr.main.y, curr.main.x, board, 2)) {
                   visited[curr.main.y][curr.main.x-1][0]  = true;
                   visited[curr.main.y][curr.main.x][0] = true;
                   q.offer(new Drone(new Pos(curr.main.y, curr.main.x-1), new Pos(curr.main.y, curr.main.x),0));
                }
-               //main Ãà ±âÁØ ¹İ½Ã°è
+               //main ì¶• ê¸°ì¤€ ë°˜ì‹œê³„
                if(check(curr.main.y, curr.main.x+1, curr.main.y, curr.main.x, 0, board) && rtcheck(curr.main.y, curr.main.x, board, 3)) {
                   visited[curr.main.y][curr.main.x+1][0]  = true;
                   visited[curr.main.y][curr.main.x][0] = true;
                   q.offer(new Drone(new Pos(curr.main.y, curr.main.x), new Pos(curr.main.y, curr.main.x+1),0));
                }
-               //sub Ãà ±âÁØ ¹İ½Ã°è
+               //sub ì¶• ê¸°ì¤€ ë°˜ì‹œê³„
                if(check(curr.sub.y, curr.sub.x-1, curr.sub.y, curr.sub.x, 0, board) && rtcheck(curr.sub.y, curr.sub.x, board, 1)) {
-                   visited[curr.sub.y][curr.sub.x-1][1] = true;
-                   visited[curr.sub.y][curr.sub.x][1] = true;
+                   visited[curr.sub.y][curr.sub.x-1][0] = true;
+                   visited[curr.sub.y][curr.sub.x][0] = true;
                    q.offer(new Drone(new Pos(curr.sub.y, curr.sub.x-1), new Pos(curr.sub.y, curr.sub.x),0));
                 }
-                //sub Ãà ±âÁØ ½Ã°è
+                //sub ì¶• ê¸°ì¤€ ì‹œê³„
                 if(check(curr.sub.y, curr.sub.x+1, curr.sub.y, curr.sub.x, 0, board) && rtcheck(curr.sub.y, curr.sub.x, board, 0)) {
-                   visited[curr.sub.y][curr.sub.x+1][1] = true;
-                   visited[curr.sub.y][curr.sub.x][1] = true;
+                   visited[curr.sub.y][curr.sub.x+1][0] = true;
+                   visited[curr.sub.y][curr.sub.x][0] = true;
                    q.offer(new Drone(new Pos(curr.sub.y, curr.sub.x), new Pos(curr.sub.y, curr.sub.x+1),0));
                 }
             }
@@ -123,27 +123,27 @@ public class KAKAO2020_7 {
       
       return answer;
    }
-   //È¸Àü µµÂø ¹æÇâ¿¡ ´ëÇÑ check
-   private static boolean check(int y, int x, int y1, int x1,  int state, int[][] board) {//y x È¸ÀüÇÏ´Â °Å y1 x1Àº Ãà
+   //íšŒì „ ë„ì°© ë°©í–¥ì— ëŒ€í•œ check
+   private static boolean check(int y, int x, int y1, int x1,  int state, int[][] board) {//y x íšŒì „í•˜ëŠ” ê±° y1 x1ì€ ì¶•
       if(y<0 || x <0 || x>=N ||y>=N) return false;
       if(visited[y][x][state] && visited[y1][x1][state]) return false;
       if(board[y][x]==1 || board[y1][x1]==1) return false;
    return true;   
    
    }
-   //µµ´Â ¹æÇâ¿¡ º®ÀÌ ÀÖ´ÂÁö ¾ø´ÂÁö check
-   private static boolean rtcheck(int y, int x, int[][] board, int rnum) {//ÃàÀ» Áı¾î³Ö¾î¾ßµÊ
+   //ë„ëŠ” ë°©í–¥ì— ë²½ì´ ìˆëŠ”ì§€ ì—†ëŠ”ì§€ check
+   private static boolean rtcheck(int y, int x, int[][] board, int rnum) {//ì¶•ì„ ì§‘ì–´ë„£ì–´ì•¼ë¨
      
-      if(rnum==0) { // 2½Ã¹æÇâ
+      if(rnum==0) { // 2ì‹œë°©í–¥
          if(y-1<0 || x+1<0 || x+1>=N || y-1>=N) return false;
          if(board[y-1][x+1]==1) return false;
-      }else if(rnum==1) {//11½Ã¹æÇâ
+      }else if(rnum==1) {//11ì‹œë°©í–¥
          if(y-1<0 || x-1<0 || x-1>=N || y-1>=N) return false;
          if(board[y-1][x-1]==1) return false;
-      }else if(rnum==2) {//7½Ã¹æÇâ
+      }else if(rnum==2) {//7ì‹œë°©í–¥
          if(y+1<0 || x-1<0 || x-1>=N || y+1>=N) return false;
          if(board[y+1][x-1]==1) return false;
-      }else {//4½Ã¹æÇâ
+      }else {//4ì‹œë°©í–¥
          if(y+1<0 || x+1<0 || x+1>=N || y+1>=N) return false;
          if(board[y+1][x+1]==1) return false;
       }
@@ -167,9 +167,9 @@ static class Pos{
    }
    
    static class Drone{
-      Pos main; //Áß½ÉÃà
+      Pos main; //ì¤‘ì‹¬ì¶•
       Pos sub;
-      int state; //false°¡·Î true¼¼·Î
+      int state; //falseê°€ë¡œ trueì„¸ë¡œ
       
       public Drone(Pos main, Pos sub, int state) {
          super();

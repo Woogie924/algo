@@ -24,12 +24,6 @@ public class BOJ_새로운게임2_17837_박정호_O {
 			this.c = c;
 			this.dir = dir;
 		}
-
-		@Override
-		public String toString() {
-//			return "Horse [num=" + num + ", r=" + r + ", c=" + c + ", dir=" + dir + "]";
-			return num+"";
-		}
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -65,7 +59,6 @@ public class BOJ_새로운게임2_17837_박정호_O {
 			board[r][c].add(h);
 			horse.add(h);
 		}
-//		print();
 		
 		Horse h = null;
 		here:while (answer <= 1000) {
@@ -79,7 +72,6 @@ public class BOJ_새로운게임2_17837_박정호_O {
 				//다음 이동할 칸이 범위를 벗어나거나 벽이라면 방향을 바꿔준다. 
 				int tr = r+dr[dir];
 				int tc = c+dc[dir];
-//				System.out.println(horseNum+" : "+tr+" "+tc);
 				if(tr<0 || tc<0 || tr>=N || tc>=N || map[tr][tc]==2) {
 					if(dir==0)
 						dir = 1;
@@ -145,24 +137,12 @@ public class BOJ_새로운게임2_17837_박정호_O {
 				}
 				if(board[tr][tc].size()>=4)
 					break here;
-//				print();
 			}//for_K
 		}//while
 		if (answer > 1000)
 			answer = -1;
 		System.out.println(answer);
 
-	}
-
-	private static void print() {
-		
-		for (int i = 0; i < N; ++i) {
-			for (int j = 0; j < N; ++j) {
-				System.out.print(board[i][j] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
 	}
 
 }
